@@ -23,7 +23,7 @@ EventBridge Scheduler (hourly) ──▶ push Lambda ───┘ ──▶ Anki
 ## Deploy
 
 ```bash
-./deploy.sh                       # region defaults to eu-central-1 (AWS_REGION=... to change)
+./deploy.sh                       # region defaults to eu-south-1 (AWS_REGION=... to change)
 
 # set the three secrets once (they never go into Terraform state)
 aws ssm put-parameter --overwrite --name /wortschatz/deepl_key        --value 'xxxx:fx'
