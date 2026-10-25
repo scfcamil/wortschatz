@@ -1,0 +1,18 @@
+# Terraform local state and working data can contain secrets and infrastructure IDs.
+**/.terraform/*
+**/terraform.tfstate
+**/terraform.tfstate.*
+**/*.tfplan
+**/.build/
+
+# Python/test artifacts
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+
+# Local environment files
+.env
+.env.*
+!.env.example

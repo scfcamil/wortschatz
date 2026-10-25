@@ -1,0 +1,3 @@
+anki==26.9.3
+awslambdaric==4.2.2
+boto3==1.43.118
