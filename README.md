@@ -42,22 +42,5 @@ curl -s -X POST "$(terraform -chdir=terraform output -raw api_url)" \
   -d '{"text":"il cane","from":"it","to":"de"}'
 # {"translation": "der Hund", "de": "der Hund", "other": "il cane", "display": "der Hund – il cane ✓", "saved": true, ...}
 
-aws lambda invoke --function-name wortschatz-push /dev/stdout   # push now instead of waiting for the hour
+aws lambda invoke --function-name wortschatz-push /dev/stdout   
 ```
-
-If the apply fails on `reserved_concurrent_executions`, your account has the new-account Lambda quota of 10. Either request a quota increase, or deploy with `-var push_reserved_concurrency=-1`. Runs are hourly and take seconds, so overlaps are unlikely anyway.
-
-## Anki side
-
-Nothing to install. Cards arrive in the deck **Wortschatz**, using your collection's own *Basic (and reversed card)* note type, so it works whatever language Anki is set to. Sync on the phone and they're there.
-
-To use your own note type instead, set `NOTETYPE` on the push Lambda. The German word goes in the first field and the translation in the second.
-
-## Tests
-
-```bash
-pip install anki "moto[dynamodb,s3,ssm]" pytest
-pytest -q tests/
-```
-
-The end-to-end test runs Anki's open-source sync server locally in place of AnkiWeb. It sends words through the capture handler (with DeepL mocked), runs the push Lambda against moto, and checks that a second "phone" client receives the cards.
